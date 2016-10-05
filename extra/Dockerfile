@@ -45,15 +45,8 @@ RUN cd /tmp && \
     cp motion /usr/local/bin/motion && \
     rm -rf /tmp/motion-mrdave
 
-COPY . /tmp/motioneye
+#COPY . /tmp/motioneye
 
-RUN cd /tmp/motioneye && \
-    python setup.py install && \
-    mkdir /etc/motioneye && \
-    mkdir -p /var/lib/motioneye && \
-    mkdir -p /usr/share/motioneye/extra && \
-    cp /tmp/motioneye/extra/motioneye.conf.sample /usr/share/motioneye/extra/motioneye.conf.sample && \
-    rm -rf /tmp/motioneye
 
 # R/W needed for motioneye to update configurations
 VOLUME /etc/motioneye
@@ -64,9 +57,18 @@ VOLUME /var/run/motion
 # Video & images
 VOLUME /var/lib/motion
 
-CMD test -e /etc/motioneye/motioneye.conf || \    
-    cp /usr/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf ; \
+# Motion SRC
+VOLUME /usr/local/src/motioneye
+
+# Run motioneye instance
+# You can now modify directely your localy motioneye source
+CMD cd /usr/local/src/motioneye && \
+    python setup.py develop && \
+    mkdir -p /var/lib/motioneye && \
+    mkdir -p /usr/share/motioneye/extra && \
+    cp /usr/local/src/motioneye/extra/motioneye.conf.sample /usr/share/motioneye/extra/motioneye.conf.sample && \
+    test -e /etc/motioneye/motioneye.conf || \
+    cp /usr/local/src/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf ; \
     /usr/local/bin/meyectl startserver -c /etc/motioneye/motioneye.conf
 
 EXPOSE 8765
-
