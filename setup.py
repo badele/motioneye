@@ -67,6 +67,7 @@ setup(
 
     package_data={
         'motioneye': [
+            'api/*',
             'static/*.*',
             'static/*/*',
             'templates/*',

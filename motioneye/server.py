@@ -28,10 +28,13 @@ import time
 from tornado.ioloop import IOLoop
 from tornado.web import Application
 
+
 import handlers
 import settings
 import template
 
+import motioneye.api
+from motioneye.api import utils
 
 _PID_FILE = 'motioneye.pid'
 _CURRENT_PICTURE_REGEX = re.compile('^/picture/\d+/current')
@@ -165,8 +168,19 @@ def _log_request(handler):
         log_method("%d %s %.2fms", handler.get_status(),
                    handler._request_summary(), request_time)
 
+
 handler_mapping = [
     (r'^/$', handlers.MainHandler),
+    (r'^/api/?$', motioneye.api.APIHandler),
+]
+
+# Add dynamicaly a API modules
+modules = utils.get_modules_api()
+for modulename in modules.keys():
+    for route in modules[modulename]['routes']:
+        handler_mapping.append(route)
+
+handler_mapping += [
     (r'^/config/main/(?P<op>set|get)/?$', handlers.ConfigHandler),
     (r'^/config/(?P<camera_id>\d+)/(?P<op>get|set|rem|set_preview|test|authorize)/?$', handlers.ConfigHandler),
     (r'^/config/(?P<op>add|list|backup|restore)/?$', handlers.ConfigHandler),
