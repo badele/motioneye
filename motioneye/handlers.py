@@ -19,7 +19,6 @@ import datetime
 import json
 import logging
 import os
-import re
 import socket
 import subprocess
 
@@ -28,20 +27,15 @@ from tornado.web import RequestHandler, HTTPError, asynchronous
 
 import motioneye.mod.config as config
 import mediafiles
-import mjpgclient
-import monitor
 import motionctl
 import powerctl
-import prefs
-import remote
+import motioneye.mod.prefs as prefs
 import settings
-import smbctl
 import tasks
 import template
 import motioneye.mod.update as update
 import uploadservices
 import utils
-import v4l2ctl
 
 
 class BaseHandler(RequestHandler):
@@ -211,24 +205,6 @@ class MainHandler(BaseHandler):
                 mask_width=utils.MASK_WIDTH,
                 mask_default_resolution=utils.MASK_DEFAULT_RESOLUTION)
 
-
-
-
-class PrefsHandler(BaseHandler):
-    def get(self, key=None):
-        self.finish_json(self.get_pref(key))
-
-    def post(self, key=None):
-        try:
-            value = json.loads(self.request.body)
-
-        except Exception as e:
-            logging.error('could not decode json: %s' % e)
-
-            raise
-
-        self.set_pref(key, value)
-    
 
 class RelayEventHandler(BaseHandler):
     @BaseHandler.auth(admin=True)
