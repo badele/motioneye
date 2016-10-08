@@ -25,7 +25,7 @@ import time
 from tornado.ioloop import IOLoop
 from tornado.iostream import IOStream
 
-import config
+import motioneye.mod.config as config
 import motionctl
 import settings
 import utils

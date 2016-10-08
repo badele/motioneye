@@ -181,9 +181,6 @@ for modulename in modules.keys():
         handler_mapping.append(route)
 
 handler_mapping += [
-    (r'^/config/main/(?P<op>set|get)/?$', handlers.ConfigHandler),
-    (r'^/config/(?P<camera_id>\d+)/(?P<op>get|set|rem|set_preview|test|authorize)/?$', handlers.ConfigHandler),
-    (r'^/config/(?P<op>add|list|backup|restore)/?$', handlers.ConfigHandler),
     (r'^/picture/(?P<camera_id>\d+)/(?P<op>current|list|frame)/?$', handlers.PictureHandler),
     (r'^/picture/(?P<camera_id>\d+)/(?P<op>download|preview|delete)/(?P<filename>.+?)/?$', handlers.PictureHandler),
     (r'^/picture/(?P<camera_id>\d+)/(?P<op>zipped|timelapse|delete_all)/(?P<group>.*?)/?$', handlers.PictureHandler),
@@ -305,7 +302,7 @@ def test_requirements():
 
 
 def make_media_folders():
-    import config
+    import motioneye.mod.config as config
     
     config.get_main() # just to have main config already loaded
     
@@ -323,7 +320,7 @@ def make_media_folders():
 
 
 def start_motion():
-    import config
+    import motioneye.mod.config as config
     import motionctl
 
     io_loop = IOLoop.instance()

@@ -35,7 +35,7 @@ import zipfile
 from PIL import Image
 from tornado.ioloop import IOLoop
 
-import config
+import motioneye.mod.config as config
 import settings
 import utils
 

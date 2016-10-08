@@ -76,7 +76,7 @@ def find_motion():
 
 
 def start(deferred=False):
-    import config
+    import motioneye.mod.config as config
     import mjpgclient
     
     if deferred:
@@ -295,7 +295,7 @@ def set_motion_detected(camera_id, motion_detected):
 
 
 def camera_id_to_thread_id(camera_id):
-    import config
+    import motioneye.mod.config as config
 
     # find the corresponding thread_id
     # (which can be different from camera_id)
@@ -314,7 +314,7 @@ def camera_id_to_thread_id(camera_id):
     
 
 def thread_id_to_camera_id(thread_id):
-    import config
+    import motioneye.mod.config as config
 
     main_config = config.get_main()
     threads = main_config.get('thread', '')
@@ -378,7 +378,7 @@ def get_rtsp_support():
 
 
 def _disable_initial_motion_detection():
-    import config
+    import motioneye.mod.config as config
 
     for camera_id in config.get_camera_ids():
         camera_config = config.get_camera(camera_id)

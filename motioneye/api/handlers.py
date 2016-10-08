@@ -20,7 +20,7 @@ import logging
 
 from tornado.web import RequestHandler, HTTPError, asynchronous
 
-import motioneye.config as config
+import motioneye.mod.config as config
 import motioneye.utils as utils
 
 class BaseHandler(RequestHandler):

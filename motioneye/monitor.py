@@ -20,7 +20,7 @@ import subprocess
 import time
 import urllib
 
-import config
+import motioneye.mod.config as config
 
 
 DEFAULT_INTERVAL = 1 # seconds

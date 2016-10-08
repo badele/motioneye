@@ -21,7 +21,7 @@ import logging
 
 from tornado.ioloop import IOLoop
 
-import config
+import motioneye.mod.config as config
 import motionctl
 import utils
 

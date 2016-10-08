@@ -21,7 +21,7 @@ import os
 import settings
 import subprocess
 
-from config import additional_config
+from motioneye.mod.config import additional_config
 
 
 LOCAL_TIME_FILE = settings.LOCAL_TIME_FILE  # @UndefinedVariable

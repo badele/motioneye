@@ -34,7 +34,7 @@ from tornado.ioloop import IOLoop
 
 import settings
 
-import config
+import motioneye.mod.config as config
 import mediafiles
 import motionctl
 import tzctl
