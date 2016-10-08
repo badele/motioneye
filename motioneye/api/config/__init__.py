@@ -707,7 +707,7 @@ class ConfigHandler(BaseHandler):
         self.redirect(url)
 
 
-DESCRIPTION = "Return the motioneye API version"
+DESCRIPTION = "Manage motioneye configuration"
 ROUTES = [
     (r'^/config/main/(?P<op>set|get)/?$', ConfigHandler),
     (r'^/config/(?P<camera_id>\d+)/(?P<op>get|set|rem|set_preview|test|authorize)/?$', ConfigHandler),

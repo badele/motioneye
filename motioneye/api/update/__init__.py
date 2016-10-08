@@ -31,7 +31,7 @@ class UpdateHandler(BaseHandler):
 
 
 
-DESCRIPTION = "Return the motioneye API version"
+DESCRIPTION = "Manage motioneye program"
 ROUTES = [
     (r'^/update/?$', UpdateHandler),
 ]
