@@ -15,19 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 
-import datetime
 import json
 import logging
-import os
 import socket
-import subprocess
 
-from tornado.ioloop import IOLoop
 from tornado.web import RequestHandler, HTTPError, asynchronous
 
 import motioneye.mod.config as config
 import motionctl
-import powerctl
 import motioneye.mod.prefs as prefs
 import settings
 import template
@@ -201,24 +196,6 @@ class MainHandler(BaseHandler):
                 has_motion=bool(motionctl.find_motion()),
                 mask_width=utils.MASK_WIDTH,
                 mask_default_resolution=utils.MASK_DEFAULT_RESOLUTION)
-
-
-class PowerHandler(BaseHandler):
-    @BaseHandler.auth(admin=True)
-    def post(self, op):
-        if op == 'shutdown':
-            self.shut_down()
-            
-        elif op == 'reboot':
-            self.reboot()
-    
-    def shut_down(self):
-        io_loop = IOLoop.instance()
-        io_loop.add_timeout(datetime.timedelta(seconds=2), powerctl.shut_down)
-
-    def reboot(self):
-        io_loop = IOLoop.instance()
-        io_loop.add_timeout(datetime.timedelta(seconds=2), powerctl.reboot)
 
 
 class VersionHandler(BaseHandler):

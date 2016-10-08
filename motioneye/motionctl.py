@@ -25,7 +25,7 @@ import time
 
 from tornado.ioloop import IOLoop
 
-import powerctl
+import motioneye.mod.power.powerctl as powerctl
 import settings
 import motioneye.mod.update as update
 import utils

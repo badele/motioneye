@@ -31,7 +31,7 @@ from tornado.ioloop import IOLoop
 
 import motioneye.diskctl as diskctl
 import motioneye.motionctl as motionctl
-import motioneye.powerctl as powerctl
+import motioneye.mod.power.powerctl as powerctl
 import motioneye.settings as settings
 import motioneye.tasks as tasks
 import motioneye.uploadservices as uploadservices

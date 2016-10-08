@@ -26,7 +26,7 @@ import motioneye.utils as utils
 import motioneye.mod.config as config
 import motioneye.remote as remote
 import motioneye.motionctl as motionctl
-import motioneye.powerctl as powerctl
+import motioneye.mod.power.powerctl as powerctl
 import motioneye.settings as settings
 import motioneye.smbctl as smbctl
 import motioneye.tasks as tasks

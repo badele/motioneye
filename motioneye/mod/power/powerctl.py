@@ -18,7 +18,7 @@
 import logging
 import os
 import subprocess
-import utils
+import motioneye.utils as utils
 
 
 def _find_prog(prog):
