@@ -28,4 +28,6 @@ class VersionHandler(BaseHandler):
 DESCRIPTION = "Version module API"
 ROUTES = [
     (r'^/api/version$', VersionHandler),
+    (r'^/version/?$', VersionHandler),
+
 ]

@@ -181,7 +181,6 @@ for modulename in modules.keys():
         handler_mapping.append(route)
 
 handler_mapping += [
-    (r'^/version/?$', handlers.VersionHandler),
     (r'^/login/?$', handlers.LoginHandler),
     (r'^.*$', handlers.NotFoundHandler),
 ]

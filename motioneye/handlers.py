@@ -26,7 +26,6 @@ import motionctl
 import motioneye.mod.prefs as prefs
 import settings
 import template
-import motioneye.mod.update as update
 import utils
 
 
@@ -198,16 +197,7 @@ class MainHandler(BaseHandler):
                 mask_default_resolution=utils.MASK_DEFAULT_RESOLUTION)
 
 
-class VersionHandler(BaseHandler):
-    def get(self):
-        self.render('version.html',
-                version=update.get_version(),
-                hostname=socket.gethostname())
-
-    post = get
-
-
-# this will only trigger the login mechanism on the client side, if required 
+# this will only trigger the login mechanism on the client side, if required
 class LoginHandler(BaseHandler):
     @BaseHandler.auth()
     def get(self):
