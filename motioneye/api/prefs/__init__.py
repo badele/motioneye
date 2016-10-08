@@ -18,7 +18,7 @@ class PrefsHandler(BaseHandler):
 
         self.set_pref(key, value)
 
-DESCRIPTION = "Manage Action"
+DESCRIPTION = "Prefs module API"
 ROUTES = [
     (r'^/prefs/(?P<key>\w+)?/?$', PrefsHandler),
 ]

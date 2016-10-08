@@ -25,7 +25,7 @@ class VersionHandler(BaseHandler):
 
     post = get
 
-DESCRIPTION = "Return the motioneye API version"
+DESCRIPTION = "Version module API"
 ROUTES = [
     (r'^/api/version$', VersionHandler),
 ]

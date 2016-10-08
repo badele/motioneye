@@ -90,7 +90,7 @@ class ActionHandler(BaseHandler):
     def record_stop(self):
         self.finish_json({})
 
-DESCRIPTION = "Manage Action"
+DESCRIPTION = "Action module API"
 ROUTES = [
     (r'^/action/(?P<camera_id>\d+)/(?P<action>\w+)/?$', ActionHandler),
 ]
