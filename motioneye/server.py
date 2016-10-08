@@ -29,11 +29,10 @@ from tornado.ioloop import IOLoop
 from tornado.web import Application
 
 
-import handlers
-import settings
-import template
-
 import motioneye.api
+import motioneye.api.handlers as handlers
+import motioneye.settings as settings
+import motioneye.template as template
 from motioneye.api import utils
 
 _PID_FILE = 'motioneye.pid'
@@ -181,7 +180,6 @@ for modulename in modules.keys():
         handler_mapping.append(route)
 
 handler_mapping += [
-    (r'^/login/?$', handlers.LoginHandler),
     (r'^.*$', handlers.NotFoundHandler),
 ]
 

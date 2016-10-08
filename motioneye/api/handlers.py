@@ -17,11 +17,17 @@
 
 import json
 import logging
+import socket
 
 from tornado.web import RequestHandler, HTTPError, asynchronous
 
 import motioneye.mod.config as config
 import motioneye.utils as utils
+import motioneye.settings as settings
+import motioneye.motionctl as motionctl
+import motioneye.template as template
+import motioneye.mod.prefs as prefs
+
 
 class BaseHandler(RequestHandler):
     def get_all_arguments(self):
@@ -166,3 +172,29 @@ class NotFoundHandler(BaseHandler):
         raise HTTPError(404, 'not found')
 
     post = head = get
+
+
+class MainHandler(BaseHandler):
+    def get(self):
+        import motioneye
+
+        # additional config
+        main_sections = config.get_additional_structure(camera=False, separators=True)[0]
+        camera_sections = config.get_additional_structure(camera=True, separators=True)[0]
+
+        self.render('main.html',
+                    frame=False,
+                    version=motioneye.VERSION,
+                    enable_update=settings.ENABLE_UPDATE,
+                    enable_reboot=settings.ENABLE_REBOOT,
+                    add_remove_cameras=settings.ADD_REMOVE_CAMERAS,
+                    main_sections=main_sections,
+                    camera_sections=camera_sections,
+                    hostname=socket.gethostname(),
+                    title=self.get_argument('title', None),
+                    admin_username=config.get_main().get('@admin_username'),
+                    has_streaming_auth=motionctl.has_streaming_auth(),
+                    has_new_movie_format_support=motionctl.has_new_movie_format_support(),
+                    has_motion=bool(motionctl.find_motion()),
+                    mask_width=utils.MASK_WIDTH,
+                    mask_default_resolution=utils.MASK_DEFAULT_RESOLUTION)
