@@ -15,12 +15,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from motioneye.api.handlers import BaseHandler
-import motioneye.update
+import motioneye.mod.update as update
 
 class VersionHandler(BaseHandler):
     def get(self):
         #result = [handler.regex.pattern for handler in self.application.handlers[0][1]]
-        ui_config = {'motioneye': motioneye.update.get_version()}
+        ui_config = {'motioneye': update.get_version()}
         self.finish_json(ui_config)
 
     post = get

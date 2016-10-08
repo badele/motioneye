@@ -16,7 +16,6 @@
 
 from motioneye.api.handlers import BaseHandler
 from tornado.web import RequestHandler, HTTPError, asynchronous
-import motioneye.update
 
 import motioneye.utils
 import motioneye.config

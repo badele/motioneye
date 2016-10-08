@@ -194,7 +194,6 @@ handler_mapping += [
     (r'^/prefs/(?P<key>\w+)?/?$', handlers.PrefsHandler),
     (r'^/_relay_event/?$', handlers.RelayEventHandler),
     (r'^/log/(?P<name>\w+)/?$', handlers.LogHandler),
-    (r'^/update/?$', handlers.UpdateHandler),
     (r'^/power/(?P<op>shutdown|reboot)/?$', handlers.PowerHandler),
     (r'^/version/?$', handlers.VersionHandler),
     (r'^/login/?$', handlers.LoginHandler),

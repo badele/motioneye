@@ -15,13 +15,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from motioneye.api.handlers import BaseHandler
-import motioneye.update
+import motioneye.mod.update as update
 import socket
 
 class CoreHandler(BaseHandler):
     def get(self):
         values = {
-            'version': motioneye.update.get_version(),
+            'version': update.get_version(),
             'hostname': socket.gethostname(),
         }
         self.finish_json(values)

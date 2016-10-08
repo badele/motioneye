@@ -27,7 +27,7 @@ from tornado.ioloop import IOLoop
 
 import powerctl
 import settings
-import update
+import motioneye.mod.update as update
 import utils
 
 _MOTION_CONTROL_TIMEOUT = 5
