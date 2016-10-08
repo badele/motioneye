@@ -5,10 +5,10 @@ from tornado.web import RequestHandler, HTTPError, asynchronous
 
 from motioneye.api.handlers import BaseHandler
 import motioneye.mod.config as config
-import motioneye.utils as utils
-import motioneye.mediafiles as mediafiles
-import motioneye.remote as remote
-import motioneye.settings as settings
+import motioneye.core.utils as utils
+import motioneye.core.mediafiles as mediafiles
+import motioneye.core.remote as remote
+import motioneye.core.settings as settings
 
 class MovieHandler(BaseHandler):
     @asynchronous

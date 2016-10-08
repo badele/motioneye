@@ -3,13 +3,13 @@ import logging
 from motioneye.api.handlers import BaseHandler
 from tornado.web import RequestHandler, HTTPError, asynchronous
 
-import motioneye.utils as utils
+import motioneye.core.utils as utils
 import motioneye.mod.config as config
-import motioneye.remote as remote
-import motioneye.mediafiles as mediafiles
-import motioneye.monitor as monitor
-import motioneye.motionctl as motionctl
-import motioneye.mjpgclient as mjpgclient
+import motioneye.core.remote as remote
+import motioneye.core.mediafiles as mediafiles
+import motioneye.core.monitor as monitor
+import motioneye.core.motionctl as motionctl
+import motioneye.core.mjpgclient as mjpgclient
 
 
 

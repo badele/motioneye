@@ -18,7 +18,7 @@
 import hashlib
 import logging
 import os
-import settings
+import motioneye.core.settings as settings
 import subprocess
 
 from motioneye.mod.config import additional_config

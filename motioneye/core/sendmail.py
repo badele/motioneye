@@ -32,12 +32,12 @@ from email.Utils import formatdate
 
 from tornado.ioloop import IOLoop
 
-import settings
+import motioneye.core.settings as settings
 
 import motioneye.mod.config as config
-import mediafiles
-import motionctl
-import tzctl
+import motioneye.core.mediafiles as mediafiles
+import motioneye.core.motionctl as motionctl
+import motioneye.core.tzctl as tzctl
 
 
 messages = {

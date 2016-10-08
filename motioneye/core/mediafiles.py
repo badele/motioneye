@@ -36,8 +36,8 @@ from PIL import Image
 from tornado.ioloop import IOLoop
 
 import motioneye.mod.config as config
-import settings
-import utils
+import motioneye.core.settings as settings
+import motioneye.core.utils as utils
 
 
 _PICTURE_EXTS = ['.jpg']
@@ -817,7 +817,7 @@ def del_media_group(camera_config, group, media_type):
 
 
 def get_current_picture(camera_config, width, height):
-    import mjpgclient
+    import motioneye.core.mjpgclient as mjpgclient
 
     jpg = mjpgclient.get_jpg(camera_config['@id'])
     

@@ -8,8 +8,8 @@ from tornado.web import RequestHandler, HTTPError, asynchronous
 
 from motioneye.api.handlers import BaseHandler
 import motioneye.mod.config as config
-import motioneye.utils as utils
-import motioneye.remote as remote
+import motioneye.core.utils as utils
+import motioneye.core.remote as remote
 
 
 class ActionHandler(BaseHandler):

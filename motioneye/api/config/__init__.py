@@ -22,16 +22,16 @@ from tornado.ioloop import IOLoop
 from tornado.web import RequestHandler, HTTPError, asynchronous
 
 from motioneye.api.handlers import BaseHandler
-import motioneye.utils as utils
+import motioneye.core.utils as utils
 import motioneye.mod.config as config
-import motioneye.remote as remote
-import motioneye.motionctl as motionctl
+import motioneye.core.remote as remote
+import motioneye.core.motionctl as motionctl
 import motioneye.mod.power.powerctl as powerctl
-import motioneye.settings as settings
-import motioneye.smbctl as smbctl
-import motioneye.tasks as tasks
-import motioneye.uploadservices as uploadservices
-import motioneye.v4l2ctl as v4l2ctl
+import motioneye.core.settings as settings
+import motioneye.core.smbctl as smbctl
+import motioneye.core.tasks as tasks
+import motioneye.core.uploadservices as uploadservices
+import motioneye.core.v4l2ctl as v4l2ctl
 
 import logging
 
@@ -619,7 +619,7 @@ class ConfigHandler(BaseHandler):
 
             elif what == 'email':
                 import motioneye.sendmail as sendmail
-                import motioneye.tzctl as tzctl
+                import motioneye.core.tzctl as tzctl
                 import motioneye.smtplib as smtplib
 
                 logging.debug('testing notification email')

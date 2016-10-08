@@ -23,8 +23,8 @@ import time
 import urllib
 import urllib2 
 
-import settings
-import utils
+import motioneye.core.settings as settings
+import motioneye.core.utils as utils
 
 
 _STATE_FILE_NAME = 'uploadservices.json'

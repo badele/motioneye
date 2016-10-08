@@ -25,7 +25,7 @@ import time
 
 from tornado.ioloop import IOLoop
 
-import settings
+import motioneye.core.settings as settings
 
 
 _INTERVAL = 2

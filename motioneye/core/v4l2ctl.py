@@ -23,7 +23,7 @@ import re
 import stat
 import subprocess
 import time
-import utils
+import motioneye.core.utils as utils
 
 
 _resolutions_cache = {}

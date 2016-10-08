@@ -2,10 +2,10 @@ import logging
 
 from motioneye.api.handlers import BaseHandler
 import motioneye.mod.config as config
-import motioneye.motionctl as motionctl
-import motioneye.utils as utils
-import motioneye.utils as tasks
-import motioneye.uploadservices as uploadservices
+import motioneye.core.motionctl as motionctl
+import motioneye.core.utils as utils
+import motioneye.core.tasks as tasks
+import motioneye.core.uploadservices as uploadservices
 
 class RelayeventHandler(BaseHandler):
     @BaseHandler.auth(admin=True)

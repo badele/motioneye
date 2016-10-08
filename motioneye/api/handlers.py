@@ -22,10 +22,10 @@ import socket
 from tornado.web import RequestHandler, HTTPError, asynchronous
 
 import motioneye.mod.config as config
-import motioneye.utils as utils
-import motioneye.settings as settings
-import motioneye.motionctl as motionctl
-import motioneye.template as template
+import motioneye.core.utils as utils
+import motioneye.core.settings as settings
+import motioneye.core.motionctl as motionctl
+import motioneye.core.template as template
 import motioneye.mod.prefs as prefs
 
 

@@ -19,7 +19,7 @@ import logging
 import os
 import re
 import subprocess
-import utils
+import motioneye.core.utils as utils
 
 
 def _list_mounts():

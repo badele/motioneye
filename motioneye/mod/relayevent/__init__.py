@@ -33,8 +33,8 @@ import urllib2
 
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]),'src'))
 
-import settings
-import utils
+import motioneye.core.settings as settings
+import motioneye.core.utils as utils
 
 
 def get_admin_credentials():

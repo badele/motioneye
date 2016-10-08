@@ -19,7 +19,7 @@ import json
 import logging
 import os.path
 
-import motioneye.settings as settings
+import motioneye.core.settings as settings
 
 
 _PREFS_FILE_NAME = 'prefs.json'

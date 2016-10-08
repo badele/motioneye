@@ -22,8 +22,8 @@ import re
 
 from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 
-import settings
-import utils
+import motioneye.core.settings as settings
+import motioneye.core.utils as utils
 
 _DOUBLE_SLASH_REGEX = re.compile('//+')
 

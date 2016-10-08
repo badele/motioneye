@@ -26,9 +26,9 @@ from tornado.ioloop import IOLoop
 from tornado.iostream import IOStream
 
 import motioneye.mod.config as config
-import motionctl
-import settings
-import utils
+import motioneye.core.motionctl as motionctl
+import motioneye.core.settings as settings
+import motioneye.core.utils as utils
 
 
 class MjpgClient(IOStream):

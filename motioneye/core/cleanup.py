@@ -23,8 +23,8 @@ import signal
 
 from tornado.ioloop import IOLoop
 
-import mediafiles
-import settings
+import motioneye.core.mediafiles as mediafiles
+import motioneye.core.settings as settings
 
 
 _process = None

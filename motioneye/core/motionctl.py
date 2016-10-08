@@ -26,9 +26,9 @@ import time
 from tornado.ioloop import IOLoop
 
 import motioneye.mod.power.powerctl as powerctl
-import settings
+import motioneye.core.settings as settings
 import motioneye.mod.update as update
-import utils
+import motioneye.core.utils as utils
 
 _MOTION_CONTROL_TIMEOUT = 5
 
@@ -77,7 +77,7 @@ def find_motion():
 
 def start(deferred=False):
     import motioneye.mod.config as config
-    import mjpgclient
+    import motioneye.core.mjpgclient as mjpgclient
     
     if deferred:
         io_loop = IOLoop.instance()
@@ -149,7 +149,7 @@ def start(deferred=False):
 
 
 def stop(invalidate=False):
-    import mjpgclient
+    import motioneye.core.mjpgclient as mjpgclient
     
     global _started
     

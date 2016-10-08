@@ -20,7 +20,7 @@ import logging
 import urllib2
 import urlparse
 
-import settings
+import motioneye.core.settings as settings
 
 
 def parse_options(parser, args):
@@ -32,7 +32,7 @@ def parse_options(parser, args):
 
 def main(parser, args):
     import meyectl
-    import utils
+    import motioneye.core.utils as utils
     
     options = parse_options(parser, args)
     

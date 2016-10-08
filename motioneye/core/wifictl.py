@@ -17,7 +17,7 @@
 
 import logging
 import re
-import settings
+import motioneye.core.settings as settings
 
 from motioneye.mod.config import additional_config, additional_section
 

@@ -5,7 +5,7 @@ import subprocess
 from tornado.web import RequestHandler, HTTPError, asynchronous
 
 from motioneye.api.handlers import BaseHandler
-import motioneye.settings as settings
+import motioneye.core.settings as settings
 
 class LogHandler(BaseHandler):
     LOGS = {

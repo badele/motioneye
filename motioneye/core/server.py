@@ -31,8 +31,8 @@ from tornado.web import Application
 
 import motioneye.api
 import motioneye.api.handlers as handlers
-import motioneye.settings as settings
-import motioneye.template as template
+import motioneye.core.settings as settings
+import motioneye.core.template as template
 from motioneye.api import utils
 
 _PID_FILE = 'motioneye.pid'
@@ -255,16 +255,16 @@ def test_requirements():
         logging.fatal('please install pycurl')
         sys.exit(-1)
     
-    import motionctl
+    import motioneye.core.motionctl as motionctl
     has_motion = motionctl.find_motion() is not None
     
-    import mediafiles
+    import motioneye.core.mediafiles as mediafiles
     has_ffmpeg = mediafiles.find_ffmpeg() is not None
     
-    import v4l2ctl
+    import motioneye.core.v4l2ctl as v4l2ctl
     has_v4lutils = v4l2ctl.find_v4l2_ctl() is not None
 
-    import smbctl
+    import motioneye.core.smbctl as smbctl
     if settings.SMB_SHARES and smbctl.find_mount_cifs() is None:
         logging.fatal('please install cifs-utils')
         sys.exit(-1)
@@ -307,7 +307,7 @@ def make_media_folders():
 
 def start_motion():
     import motioneye.mod.config as config
-    import motionctl
+    import motioneye.core.motionctl as motionctl
 
     io_loop = IOLoop.instance()
     
@@ -340,13 +340,13 @@ def parse_options(parser, args):
 
 
 def run():
-    import cleanup
-    import mjpgclient
-    import motionctl
+    import motioneye.core.cleanup as cleanup
+    import motioneye.core.mjpgclient as mjpgclient
+    import motioneye.core.motionctl as motionctl
     import motioneye
-    import smbctl
-    import tasks
-    import wsswitch
+    import motioneye.core.smbctl as smbctl
+    import motioneye.core.tasks as tasks
+    import motioneye.core.wsswitch as wsswitch
 
     configure_signals()
     logging.info('hello! this is motionEye server %s' % motioneye.VERSION)
@@ -412,7 +412,7 @@ def run():
 
 
 def main(parser, args, command):
-    import meyectl
+    import motioneye.meyectl as meyectl
     
     options = parse_options(parser, args)
     

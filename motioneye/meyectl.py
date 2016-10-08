@@ -25,7 +25,7 @@ import sys
 # make sure motioneye is on python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import settings
+import motioneye.core.settings as settings
 
 
 _LOG_FILE = 'motioneye.log'
@@ -252,11 +252,11 @@ def main():
     arg_parser = make_arg_parser(command)
 
     if command in ('startserver', 'stopserver'):
-        import server
+        import motioneye.core.server as server
         server.main(arg_parser, sys.argv[2:], command[:-6])
 
     elif command == 'sendmail':
-        import sendmail
+        import motioneye.core.sendmail as sendmail
         sendmail.main(arg_parser, sys.argv[2:])
     
     elif command == 'relayevent':
@@ -264,11 +264,11 @@ def main():
         relayevent.main(arg_parser, sys.argv[2:])
 
     elif command == 'webhook':
-        import webhook
+        import motioneye.core.webhook as webhook
         webhook.main(arg_parser, sys.argv[2:])
 
     elif command == 'shell':
-        import shell
+        import motioneye.core.shell as shell
         shell.main(arg_parser, sys.argv[2:])
 
     else:
