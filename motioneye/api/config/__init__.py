@@ -25,7 +25,7 @@ from motioneye.api.handlers import BaseHandler
 import motioneye.utils as utils
 import motioneye.mod.config as config
 import motioneye.remote as remote
-import motioneye.motioncttl as motionctl
+import motioneye.motionctl as motionctl
 import motioneye.powerctl as powerctl
 import motioneye.settings as settings
 import motioneye.smbctl as smbctl
