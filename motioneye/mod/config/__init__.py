@@ -353,6 +353,20 @@ def get_camera(camera_id, as_lines=False):
     
     return camera_config
 
+def get_camera_value_for_keyname(config, keyname=None):
+    keys = config.keys()
+    result = dict()
+    result['scope'] = 'motion'
+
+    if keyname is not None:
+        result['keyname'] = keyname
+        result['value'] = config.get(keyname, None)
+
+        # Motioneye var type
+        if keyname[0] == "@":
+            result['scope'] = 'motioneye'
+
+    return result
 
 def set_camera(camera_id, camera_config):
     camera_config['@id'] = camera_id

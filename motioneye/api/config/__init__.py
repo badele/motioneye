@@ -38,23 +38,32 @@ import logging
 
 class ConfigHandler(BaseHandler):
     @asynchronous
-    def get(self, camera_id=None, op=None):
+    def get(self, camera_id=None, op=None, action=None, keyname=None):
         config.invalidate_monitor_commands()
 
         if camera_id is not None:
             camera_id = int(camera_id)
 
-        if op == 'get':
-            self.get_config(camera_id)
+        if action is None:
 
-        elif op == 'list':
-            self.list()
+            if op == 'get':
+                self.get_config(camera_id)
 
-        elif op == 'backup':
-            self.backup()
+            elif op == 'list':
+                self.list()
 
-        elif op == 'authorize':
-            self.authorize(camera_id)
+            elif op == 'backup':
+                self.backup()
+
+            elif op == 'authorize':
+                self.authorize(camera_id)
+
+            else:
+                raise HTTPError(400, 'unknown operation')
+
+        if action == 'value':
+            if op == 'get':
+                self.get_camera_value_for_keyname(camera_id, keyname=keyname)
 
         else:
             raise HTTPError(400, 'unknown operation')
@@ -125,6 +134,49 @@ class ConfigHandler(BaseHandler):
 
             ui_config = config.main_dict_to_ui(config.get_main())
             self.finish_json(ui_config)
+
+    @BaseHandler.auth(admin=True)
+    def get_camera_value_for_keyname(self, camera_id, keyname):
+        if camera_id:
+            logging.debug('getting config for camera %(id)s' % {'id': camera_id})
+
+            if camera_id not in config.get_camera_ids():
+                raise HTTPError(404, 'no such camera')
+
+            local_config = config.get_camera(camera_id)
+            if utils.local_motion_camera(local_config):
+                ui_config = config.get_camera_value_for_keyname(config=local_config, keyname=keyname)
+
+                self.finish_json(ui_config)
+
+            elif utils.remote_camera(local_config):
+                def on_response(remote_ui_config=None, error=None):
+                    if error:
+                        return self.finish_json(
+                            {'error': 'Failed to get remote camera configuration for %(url)s: %(msg)s.' % {
+                                'url': remote.pretty_camera_url(local_config), 'msg': error}})
+
+                    for key, value in local_config.items():
+                        remote_ui_config[key.replace('@', '')] = value
+
+                    # replace the real device url with the remote camera path
+                    remote_ui_config['device_url'] = remote.pretty_camera_url(local_config)
+                    remote_ui_config = config.get_camera_value_for_keyname(config=remote_ui_config, keyname=keyname)
+
+                    self.finish_json(remote_ui_config)
+
+                remote.get_config(local_config, on_response)
+
+            else:  # assuming simple mjpeg camera
+                ui_config = config.get_camera_value_for_keyname(config=local_config, keyname=keyname)
+                self.finish_json(ui_config)
+
+        else:
+            logging.debug('getting main config')
+
+            ui_config = config.get_camera_value_for_keyname(config=config.get_main(), keyname=keyname)
+            self.finish_json(ui_config)
+
 
     @BaseHandler.auth(admin=True)
     def set_config(self, camera_id):
@@ -721,6 +773,9 @@ class ConfigHandler(BaseHandler):
 
 DESCRIPTION = "Manage motioneye configuration"
 ROUTES = [
+    # API
+    (r'^/api/camera/(?P<camera_id>\d+)/(?P<action>.*?)/(?P<keyname>.*?)/(?P<op>set|get)/?$', ConfigHandler),
+
     (r'^/config/main/(?P<op>set|get)/?$', ConfigHandler),
     (r'^/config/(?P<camera_id>\d+)/(?P<op>get|set|rem|set_preview|test|authorize)/?$', ConfigHandler),
     (r'^/config/(?P<op>add|list|backup|restore)/?$', ConfigHandler),
