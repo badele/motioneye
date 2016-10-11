@@ -90,6 +90,16 @@ class BaseHandler(RequestHandler):
         self.set_header('Content-Type', 'application/json')
         self.finish(json.dumps(data))
 
+    def finish_http(self, data={},format='json'):
+
+        if format == 'json':
+            self.set_header('Content-Type', 'application/json')
+            self.finish(json.dumps(data))
+
+        # No format found
+        self.set_header('Content-Type', 'application/json')
+        self.finish(json.dumps(data))
+
     def get_current_user(self):
         main_config = config.get_main()
 
