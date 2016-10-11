@@ -138,6 +138,7 @@ class ConfigHandler(BaseHandler):
     @BaseHandler.auth(admin=True)
     def get_camera_value_for_keyname(self, camera_id, keyname):
         format = self.get_argument('format', 'json')
+        filter = self.get_argument('filter', None)
 
         if camera_id:
             logging.debug('getting config for camera %(id)s' % {'id': camera_id})
@@ -149,14 +150,14 @@ class ConfigHandler(BaseHandler):
             if utils.local_motion_camera(local_config):
                 ui_config = config.get_camera_value_for_keyname(config=local_config, keyname=keyname)
 
-                self.finish_http(ui_config,format)
+                self.finish_http(ui_config, format, filter)
 
             elif utils.remote_camera(local_config):
                 def on_response(remote_ui_config=None, error=None):
                     if error:
                         return self.finish_http(
                             {'error': 'Failed to get remote camera configuration for %(url)s: %(msg)s.' % {
-                                'url': remote.pretty_camera_url(local_config), 'msg': error}},format)
+                                'url': remote.pretty_camera_url(local_config), 'msg': error}}, format, filter)
 
                     for key, value in local_config.items():
                         remote_ui_config[key.replace('@', '')] = value
@@ -165,19 +166,19 @@ class ConfigHandler(BaseHandler):
                     remote_ui_config['device_url'] = remote.pretty_camera_url(local_config)
                     remote_ui_config = config.get_camera_value_for_keyname(config=remote_ui_config, keyname=keyname)
 
-                    self.finish_http(remote_ui_config,format)
+                    self.finish_http(remote_ui_config,format, filter)
 
                 remote.get_config(local_config, on_response)
 
             else:  # assuming simple mjpeg camera
                 ui_config = config.get_camera_value_for_keyname(config=local_config, keyname=keyname)
-                self.finish_http(ui_config,format)
+                self.finish_http(ui_config, format, filter)
 
         else:
             logging.debug('getting main config')
 
             ui_config = config.get_camera_value_for_keyname(config=config.get_main(), keyname=keyname)
-            self.finish_http(ui_config,format)
+            self.finish_http(ui_config, format, filter)
 
 
     @BaseHandler.auth(admin=True)

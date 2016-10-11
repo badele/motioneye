@@ -86,29 +86,45 @@ class BaseHandler(RequestHandler):
         content = template.render(template_name, **context)
         self.finish(content)
 
-    def finish_json(self, data={}):
+    def finish_json(self, data={}, filter=None):
         self.set_header('Content-Type', 'application/json')
+
+        # Filter the result
+        if filter:
+            if filter in data:
+                data = {'value': data['filter']}
+            else:
+                data = {'value': None }
+
         self.finish(json.dumps(data))
 
-    def finish_text(self, data={}):
+    def finish_text(self, data={}, filter=None):
         self.set_header('Content-Type', 'text/plain')
 
-        output = ""
-        for key, value in data.items():
-            output += "%(key)s = %(value)s\n" % locals()
+        # Filter the result
+        if filter:
+            if filter in data:
+                value = data['filter']
+            else:
+                value = None
 
-        self.finish(output)
+            self.finish(value)
+        else:
+            output = ""
+            for key, value in data.items():
+                output += "%(key)s = %(value)s\n" % locals()
 
-    def finish_http(self, data={},format='json'):
+            self.finish(output)
 
+    def finish_http(self, data={},format='json', filter=None):
+        # Output result in different formats
         if format == 'json':
-            self.finish_json(data)
+            self.finish_json(data, filter)
         elif format == 'text':
-            self.finish_text(data)
+            self.finish_text(data, filter)
         else:
             # No format found
-            self.set_header('Content-Type', 'application/json')
-            self.finish(json.dumps(data))
+            self.finish_json(data, filter)
 
     def get_current_user(self):
         main_config = config.get_main()
