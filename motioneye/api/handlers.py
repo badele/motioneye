@@ -92,7 +92,7 @@ class BaseHandler(RequestHandler):
         # Filter the result
         if filter:
             if filter in data:
-                data = {'value': data['filter']}
+                data = {'value': data[filter]}
             else:
                 data = {'value': None }
 
@@ -104,17 +104,17 @@ class BaseHandler(RequestHandler):
         # Filter the result
         if filter:
             if filter in data:
-                value = data['filter']
+                value = data[filter]
             else:
                 value = None
 
-            self.finish(value)
+            self.finish(unicode(value))
         else:
             output = ""
             for key, value in data.items():
                 output += "%(key)s = %(value)s\n" % locals()
 
-            self.finish(output)
+            self.finish(unicode(output))
 
     def finish_http(self, data={},format='json', filter=None):
         # Output result in different formats
